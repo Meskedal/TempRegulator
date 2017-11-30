@@ -1,0 +1,12 @@
+xtal- external clock and capacitor for this?
+ADC for temp sensor
+temp sensor 10k 
+usb avr progging kit
+ATMEGA168
+BUTTONS
+general transistors/diodes/leds
+wires?
+
+
+
+maybe extra can node

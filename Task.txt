@@ -1,0 +1,8 @@
+Task:
+
+Regulate a given liquid to a constant temperature of choice for long periods with possibility to change values of the process for length/temp intervalls. 
+It is not possible to measure temperautre of the liquid directly. 
+The container of the liquid is contained in a temperature isolated box with both freezing/heating element for regulation of temp.
+The temp of the liquid should be displayed at a LCD and transmitted wirelessly while also have a trend of the regulation. someway to communicate trough the internet.
+
+ 
