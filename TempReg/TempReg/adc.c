@@ -27,7 +27,7 @@
 
 	TIMSK=(1<<TOIE1); // enable timer overflow interrupt for Timer 1
 	
-	TCCR1B = (1<<CS12); // start timer1 with /256 prescaler
+	TCCR1B = (1<<CS11)|(1<<CS10);//|(1<<CS12); // start timer1 with /256 prescaler
 	
 	sei(); // Enable global interrupts
 
@@ -74,21 +74,46 @@
 //  if((ADCSRA & (ADIF << 1))){ // AC Interrupt flag set
 // 	 
 //  
- void adc_start_MM_conversion(void){
-	uint8_t ADC_low;
-	uint16_t ADC_high;
-	PORTC |= (1 << PINC1);
-	_delay_us(20);
-	for (uint8_t i = 0; i < N_READS; i++){
-		ADCSRA |= (1 << ADSC);
-		loop_until_bit_is_set(ADCSRA, ADIF);
-		ADC_low = ADCL;
-		ADC_high = (ADCH << 8);
-		readings[i] = ADC_high | ADC_low;
+ uint8_t adc_start_MM_conversion(void){
+	if(timer_flag){
+		uint8_t ADC_low;
+		uint16_t ADC_high;
+		PORTC |= (1 << PINC1);
+		_delay_us(20);
+		for (uint8_t i = 0; i < N_READS; i++){
+			ADCSRA |= (1 << ADSC);
+			loop_until_bit_is_set(ADCSRA, ADIF);
+			ADC_low = ADCL;
+			ADC_high = (ADCH << 8);
+			readings[i] = ADC_high | ADC_low;
+		}
+		timer_flag = 0;
+		return 1;
+	}else{
+		return 0;
 	}
- }
+}
+
+float adc_get_MM_result(void){
+	uint32_t average = 0;
+	for (uint8_t i = 0; i < N_READS; i++){
+		average +=readings[i];
+	}
+	float ADC_result = (float)(average/((float)N_READS));
+	float R = RESOLUTION/((float)ADC_result) - 1;
+	R = R_DIV/R;
+	printf("R: %d\n", (uint16_t)R);
+	float steinhart = 1/((float)B);
+	steinhart *= log(R/R0);
+	steinhart += 1/((float)T0);
+	steinhart = 1/((float)steinhart);
+	float temp =  steinhart - (float)273.15;
+	ADCSRA |= (1 << ADIF); // clear flag
+
+	//ADC = (Vin * 2^10)/Vref    Vin = (ADC*Vref)/2^10
+	return temp;
+}
  
  ISR(TIMER1_OVF_vect){
 	timer_flag = 1;
-	adc_start_conversion();
 }

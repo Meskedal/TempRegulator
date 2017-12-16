@@ -12,8 +12,8 @@
 void adc_init(void);
 void adc_start_conversion(void);
 float adc_get_result(void);
-void adc_start_MM_conversion(void);
+uint8_t adc_start_MM_conversion(void);
 void temp_print(float temp);
-
+float adc_get_MM_result(void);
 
 #endif /* ADC_H_ */

@@ -16,7 +16,7 @@ int main(void){
 	adc_init();
 	float temp;
 
-	printf("Hei");
+	printf("Start_UP");
 	
     while (1) 
     {	
@@ -26,12 +26,10 @@ int main(void){
 //   		_delay_ms(100);
 //   		PORTB &= ~(1 << PINB1);
 
-
-// 		if(!(ADCSR & (1 << ADSC))){
-// 			adc_start_conversion();
-// 		} 
-		if((ADCSRA & (1 << ADIF))){ // AC Interrupt flag set
-			temp = adc_get_result();
+		//printf("Hei\n");
+// 		
+		if(adc_start_MM_conversion()){
+			temp = adc_get_MM_result()-1.21; // Offset
 			printf("Temp: %2d Celsius \n", (uint16_t)(temp*((float)100)));
 		}
     }
