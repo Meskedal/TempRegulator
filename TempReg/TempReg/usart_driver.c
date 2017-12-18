@@ -8,7 +8,7 @@
  #include "usart_driver.h"
  #include "utilities.h"
  #define BAUD 9600
- #define ubrr F_CPU/16/BAUD-1
+// #define ubrr F_CPU/(16*(BAUD-1))
 /* #define ubrr 24*/
 
  void usart_init(void){
@@ -16,8 +16,10 @@
 	
 // 	uint8_t uh = (unsigned char)((ubrr) >> 8);
 // 	uint8_t ul = (unsigned char)(((ubrr) << 8) >> 8);
- 	UBRRH = (unsigned char)((ubrr) >> 8);
- 	UBRRL = (unsigned char)(((ubrr) << 8) >> 8);
+	uint8_t ubrr = 103;
+	UBRRH &= ~(1 << URSEL);
+	UBRRH = (unsigned char)(ubrr>>8);
+	UBRRL = (unsigned char)ubrr;
  
 	/* Enable receiver and transmitter */
 	UCSRB = (1<<RXEN)|(1<<TXEN);
