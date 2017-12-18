@@ -135,6 +135,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ntc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ntc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="spi.c">
       <SubType>compile</SubType>
     </Compile>

@@ -8,22 +8,21 @@
 #include "led.h"
 #include "usart_driver.h"
 #include "adc.h"
+#include "ntc.h"
 
 
 int main(void){	
 	led_init();
 	usart_init();
 	adc_init();
+	ntc_init();
 	float temp;
 
-	
     while (1){	
-   	   
 	   led_blink();
-
-		if(adc_start_MM_conversion()){
- 			temp = adc_get_MM_result()-1.21; // Offset
- 			printf("Temp: %2d Celsius \n", (uint16_t)(temp*((float)100)));
+		if(ntc_start_conv()){
+ 			temp = ntc_get_temp()-1.21; // Offset
+ 			printf("Temp: %2d Celsius \n", (uint16_t)(temp*100.0));
 		}
     }
 }

@@ -10,7 +10,10 @@
 #define NTC_H_
 
 void ntc_init(void);
-
+uint8_t ntc_start_conv(void);
+float ntc_get_temp(void);
+void temp_print(float temp);
+float steinhart(float R);
 
 
 
