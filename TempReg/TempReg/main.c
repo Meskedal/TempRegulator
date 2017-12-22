@@ -9,12 +9,14 @@
 #include "usart_driver.h"
 #include "adc.h"
 #include "ntc.h"
+#include "esp8266.h"
 
 
 int main(void){	
 	led_init();
 	usart_init();
 	adc_init();
+	esp8266_init();
 	ntc_init();
 	float temp;
 
@@ -22,7 +24,7 @@ int main(void){
 	   led_blink();
 		if(ntc_start_conv()){
  			temp = ntc_get_temp()-1.21; // Offset
- 			printf("Temp: %2d Celsius \n", (uint16_t)(temp*100.0));
+ 			//printf("Temp: %2d Celsius \n", (uint16_t)(temp*100.0));
 		}
     }
 }

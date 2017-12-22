@@ -126,6 +126,12 @@
     <Compile Include="adc.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="esp8266.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="esp8266.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="led.c">
       <SubType>compile</SubType>
     </Compile>

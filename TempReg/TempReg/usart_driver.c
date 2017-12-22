@@ -7,20 +7,19 @@
 
  #include "usart_driver.h"
  #include "utilities.h"
- #define BAUD 9600
+ #define BAUD 115200
 // #define ubrr F_CPU/(16*(BAUD-1))
 /* #define ubrr 24*/
 
  void usart_init(void){
 	/* Set baud rate */
-	
-// 	uint8_t uh = (unsigned char)((ubrr) >> 8);
-// 	uint8_t ul = (unsigned char)(((ubrr) << 8) >> 8);
-	uint8_t ubrr = 103;
+	uint8_t ubrr = 16; //F_CPU = 16MHz, BAUD 115200, U2X = 1
 	UBRRH &= ~(1 << URSEL);
 	UBRRH = (unsigned char)(ubrr>>8);
 	UBRRL = (unsigned char)ubrr;
- 
+	
+	/*Enable double speed*/
+	UCSRA |= (1 << U2X); 
 	/* Enable receiver and transmitter */
 	UCSRB = (1<<RXEN)|(1<<TXEN);
 	/* Set frame format: 8data, 2stop bit */

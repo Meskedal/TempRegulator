@@ -25,7 +25,7 @@ static uint8_t timer_flag = 0;
 void ntc_init(void){
 	cli(); // Disable global interrupts
 	TIMSK=(1<<TOIE1); // enable timer overflow interrupt for Timer 1
-	TCCR1B = (1<<CS10)|(1<<CS12); // start timer1 with /256 prescaler
+	TCCR1B = (1<<CS10)|(1<<CS12); // start timer1 with /1024 prescaler
 	sei(); // Enable global interrupts
  }
 
@@ -62,7 +62,7 @@ float ntc_get_temp(void){
 	ADC_result = average/(float)N_READS;
 	R = RESOLUTION/ADC_result - 1;
 	R = R_DIV/R;
-	printf("R: %d\n", (uint16_t)R);
+	///printf("R: %d\n", (uint16_t)R);
 	temp = steinhart(R);
 	return temp;
 }
