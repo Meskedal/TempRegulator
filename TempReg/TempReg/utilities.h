@@ -10,6 +10,8 @@
 #define UTILITIES_H_
 #define F_CPU 4000000
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>

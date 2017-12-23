@@ -6,7 +6,6 @@
  */ 
 
  #include "usart_driver.h"
- #include "utilities.h"
  #define BAUD 115200
 // #define ubrr F_CPU/(16*(BAUD-1))
 /* #define ubrr 24*/
@@ -46,4 +45,12 @@
 	 char hei[10];
 	 scanf("%s",hei);
 	 printf("%s\n",hei);
+ }
+
+ void USART_flush(uint8_t N){
+	char buffer[40];
+	for (uint8_t i = 0; i < N; i++){
+		scanf("%s", buffer);
+		//printf("Flushed: %s\n",buffer);
+	}
  }

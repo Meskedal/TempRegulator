@@ -19,12 +19,15 @@ int main(void){
 	esp8266_init();
 	ntc_init();
 	float temp;
+	uint16_t data;
 
     while (1){	
 	   led_blink();
 		if(ntc_start_conv()){
  			temp = ntc_get_temp()-1.21; // Offset
+			data = (uint16_t)(temp*100.0);
  			//printf("Temp: %2d Celsius \n", (uint16_t)(temp*100.0));
+			esp8266_send(data);
 		}
     }
 }
