@@ -54,3 +54,9 @@
 		//printf("Flushed: %s\n",buffer);
 	}
  }
+
+ void USART_send_string(char* string, uint8_t length){
+	for (uint8_t i = 0; i < length; i++){
+		USART_Transmit(string[i]);
+	}
+ }

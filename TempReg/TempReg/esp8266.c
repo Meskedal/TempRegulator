@@ -156,38 +156,12 @@
 	if(send_request){
 		cli();
 		char temp[4];
-		itoa(data,temp,10);
-		char send[7];
-		for (uint8_t i = 0; i < 5; i++){
-			if(i > 2){
-				send[i] = temp[i-1];
-			} else{
-			send[i] = temp[i];
-			}
-		}
-		send[2] = ',';
-		send[5] = '\'';
-		send[6] = 'C';
-		esp8266_simple_transmit("AT+CIPSEND=0,7");
-		_delay_ms(200);
-		printf(send);
-		_delay_ms(2000);
-		esp8266_simple_transmit("AT+CIPCLOSE=0");
-		_delay_ms(10000);
-		_delay_ms(10000);
-		esp8266_simple_transmit("AT+CIPCLOSE=0");
-		_delay_ms(1000);
+		itoa(data,temp,10);	
+		printf(temp);
 		GIFR |= (1<< INTF0);
 		GICR |= (1<<INT0);
 		sei();
 	}
-	
 	send_request = 0;
  }
 
- ISR(INT0_vect){
-	cli();
-	GICR &= ~(1<<INT0);
-	send_request = 1;
-	sei();
- }

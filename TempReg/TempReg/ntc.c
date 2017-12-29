@@ -62,7 +62,7 @@ float ntc_get_temp(void){
 	ADC_result = average/(float)N_READS;
 	R = RESOLUTION/ADC_result - 1;
 	R = R_DIV/R;
-	///printf("R: %d\n", (uint16_t)R);
+	//printf("R: %d\n", (uint16_t)R);
 	temp = steinhart(R);
 	return temp;
 }
