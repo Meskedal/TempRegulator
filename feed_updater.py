@@ -1,13 +1,10 @@
-import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import gspread
 import requests
-import pprint
 from time import sleep, localtime, strftime
-import datetime
+
+#import pprint
 #may need ssl? open ssl?
-
-
-
 
 def get_temp():
 	sucess = True
@@ -28,18 +25,12 @@ def get_temp():
 		return "error"
 
 def format_temp(temp):
-	#print(temp)
-	new_temp = ''
-	for i in range(0,4):
-		new_temp += temp[i]
-		if(i == 1):
-			new_temp += ','
-	return new_temp
+	temp_formated = "%s,%s" @ (temp[0:2],temp[2:4])
+	return temp_formated
 
 def insert_temp(temp, sheet, row_index):
-	time_now = strftime("%d-%m-%Y %H:%M:%S", localtime())
-	time_formatted = "%s.%s.%s kl. %s.%s.%s" % ( time_now[0:2], time_now[3:5], time_now[6:10], time_now[11:13], time_now[14:16],time_now[17:19])	
-	sheet.update_cell(row_index,1,time_formatted);
+	time_now = strftime("%d.%m.%Y kl. %H.%M.%S", localtime())	
+	sheet.update_cell(row_index,1,time_now);
 	sheet.update_cell(row_index,2,temp)
 	
 
