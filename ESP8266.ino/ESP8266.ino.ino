@@ -44,6 +44,7 @@ void handleNotFound(){
 }
 
 void setup(void){
+  delay(50); 
   pinMode(gpio_2, OUTPUT); //Setup interrupt 
   Serial.begin(115200);
   WiFi.begin(ssid, password);
@@ -77,5 +78,6 @@ void setup(void){
 }
 
 void loop(void){
+  delay(100);
   server.handleClient();
 }

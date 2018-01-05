@@ -1,13 +1,12 @@
-Task:
+Completed:
+1-way communication completed, temp data is sent to google spreadsheet which is graphed at wordpress site. 
 
 
-Regulate a given liquid to a constant temperature of choice for long periods with possibility to change values of the process for length/temp intervalls. 
+Next:
+Implement 2-way communication through site, Wordpress server executing python script as external widget with arguments that creates html site at wordpress server based on input,
+ESP8266 gathers this info with a simple get request from url, interrupts mcu and sends parameters via serial which then gets passed to mcu to run the chosen program.
+time elapsed should maybe be sent too, considering the precision of mcu timers, and compared to function to paramters, or a simple stop/continue command from server.
+The regulation is done through on/off heating and cooling via seperated relays, considering of a certain amount of degrees to not over saturate the cooling.
 
-It is not possible to measure temperautre of the liquid directly. 
-
-The container of the liquid is contained in a temperature isolated box with both freezing/heating element for regulation of temp.
-
-The temp of the liquid should be displayed at a LCD and transmitted wirelessly while also have a trend of the regulation. someway to communicate trough the internet.
-
- 
-Setting up a ESP8266 as a data transmitter over wifi as client. Setting up Raspberry pi as server, receiving the data from the ESP8266 client and hosting the information/trend at site for any external client to view.
+Final:
+Order PCB
