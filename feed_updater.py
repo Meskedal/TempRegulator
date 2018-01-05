@@ -25,17 +25,16 @@ def get_temp():
 		return "error"
 
 def format_temp(temp):
-	temp_formated = "%s,%s" @ (temp[0:2],temp[2:4])
+	temp_formated = "%s,%s" % (temp[0:2],temp[2:4])
 	return temp_formated
 
-def insert_temp(temp, sheet, row_index):
-	time_now = strftime("%d.%m.%Y kl. %H.%M.%S", localtime())	
-	sheet.update_cell(row_index,1,time_now);
-	sheet.update_cell(row_index,2,temp)
-	
+def insert_temp(temp, sheet):
+	time_now = strftime("%d.%m.%Y kl. %H.%M.%S", localtime())
+	values = [time_now, temp]
+	sheet.delete_row(2)
+	sheet.append_row(values)
 
 def main():
-	row_index = 2
 	scope = ['https://spreadsheets.google.com/feeds']
 	credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 	sheet_connected = False
@@ -44,23 +43,21 @@ def main():
 			gc = gspread.authorize(credentials)
 			sheet = gc.open('temperatures').sheet1
 			sheet_connected = True
-			print("Connected")
+			print("Connected to spreadsheet")
 		except:
 			sheet_connected = False
 			print ("No connection to spreadsheet")
 			sleep(5)
-	#sheet = gc.open('temperatures').sheet1
-	
-	print(sheet.row_count)
+	sheet.resize(241,2) # 240*1 = 4h span
 	while(1):
-		sleep(5)
+		sleep(60)
 		if credentials.access_token_expired:
 			gc.login()
 		temp = get_temp()
 		if (temp != "error"):
 			temp = format_temp(temp)
-			insert_temp(temp, sheet, row_index)
-			row_index += 1
+			insert_temp(temp, sheet)
+			print("new temp entry")
 		#print(temp)
 			
 
