@@ -1,9 +1,9 @@
 Completed:
-1-way communication completed, temp data is sent to google spreadsheet which is graphed at wordpress site. 
+1-way communication completed, temp data is sent to google spreadsheet, via python script, which is graphed at wordpress site. 
 
 
 Next:
-Implement 2-way communication through site, Wordpress server executing python script as external widget with arguments that creates html site at wordpress server based on input,
+Implement 2-way communication through site, Wordpress server executing python script as external widget (Or add shortcode to implement php functions) with arguments that creates html site at wordpress server based on input,
 ESP8266 gathers this info with a simple get request from url, interrupts mcu and sends parameters via serial which then gets passed to mcu to run the chosen program.
 time elapsed should maybe be sent too, considering the precision of mcu timers, and compared to function to paramters, or a simple stop/continue command from server.
 The regulation is done through on/off heating and cooling via seperated relays, considering of a certain amount of degrees to not over saturate the cooling.
