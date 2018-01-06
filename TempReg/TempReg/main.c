@@ -11,7 +11,7 @@
 #include "ntc.h"
 #include "esp8266.h"
 static uint16_t data;
-static char data_send[4] = "9995";
+static char data_send[4] = "0000";
 
 int main(void){	
 	cli();
@@ -26,7 +26,7 @@ int main(void){
     while (1){	
 	   led_blink();
 		if(ntc_start_conv()){
- 			temp = ntc_get_temp()-1.21; // Offset
+ 			temp = ntc_get_temp_B()-1.21; // Offset
 			data = (uint16_t)(temp*100.0);
 			itoa(data,data_send,10);
 			//printf("Data: %d\n",data);

@@ -15,6 +15,9 @@
 #define B 3950.0
 #define T0 298.15 // 25 + 273.15
 #define RESOLUTION 1023.0 // 2^10
+#define A_SH 0.00080912453
+#define B_SH 0.00028362482
+#define C_SH 0
 
 static uint16_t readings[N_READS] = {0};
 static uint8_t timer_flag = 0;
@@ -51,7 +54,28 @@ uint8_t ntc_start_conv(void){
 	}
 }
 
-float ntc_get_temp(void){
+float ntc_get_temp_SH(void){
+	float average = 0;
+	float temp;
+	float ADC_result;
+	float R;
+	for (uint8_t i = 0; i < N_READS; i++){
+		average +=readings[i];
+	}
+	ADC_result = average/(float)N_READS;
+	R = RESOLUTION/ADC_result - 1;
+	R = R_DIV/R;
+	temp = steinhart_SH(R);
+	return temp;
+}
+
+float steinhart_SH(float R){
+	float temp = log(R)*B_SH;
+	temp+= A_SH;
+	return temp;
+}
+
+float ntc_get_temp_B(void){
 	float average = 0;
 	float temp;
 	float ADC_result;
