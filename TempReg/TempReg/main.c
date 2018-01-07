@@ -14,10 +14,7 @@ static uint16_t data;
 static char data_send[4] = "0000";
 
 int main(void){	
-	cli();
-	MCUCR |= (1<<ISC01)|(1<<ISC00);
-	GICR |= (1<<INT0);
-	sei();
+	esp8266_init();
 	led_init();
 	usart_init();
 	adc_init();

@@ -9,7 +9,8 @@
 #ifndef ESP8266_H_
 #define ESP8266_H_
 
- void esp8266_init(void);
+void esp8266_init(void);
+void esp8266_receive(void);
 
 
 

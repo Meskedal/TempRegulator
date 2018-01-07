@@ -17,3 +17,13 @@ void esp8266_init(void){
 	sei();
 } 
 
+void esp8266_receive(void){ // Called in interupt vector
+	uint8_t msg_length = atoi(USART_Receive());
+	char instruction[msg_length];
+	USART_receive_string(instruction, msg_length);
+	if (instruction == "send"){
+
+	}
+	//Use 1 transmission that implies instruction, s = send, u = update to avoid allocatin memory
+
+}

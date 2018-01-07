@@ -147,12 +147,6 @@
     <Compile Include="ntc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="spi.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="usart_driver.c">
       <SubType>compile</SubType>
     </Compile>

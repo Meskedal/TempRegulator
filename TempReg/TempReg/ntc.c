@@ -110,3 +110,14 @@ void temp_print(float temp){
 ISR(TIMER1_OVF_vect){
 	timer_flag = 1;
 }
+
+void regulate_temp(float temp, float ref_temp){
+	// DIRB |= (1 << PINB4) | (1 << PINB5); //heating cooling
+	//
+	if (temp > ref_temp+0.3){
+		//PORTB |= (1 << PINB4);
+	} 
+	else if (temp < ref_temp-0.3){
+		//PORTB |= (1 << PINB5);
+	}
+}

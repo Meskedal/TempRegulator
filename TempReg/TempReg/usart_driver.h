@@ -15,6 +15,7 @@ unsigned char USART_Receive(void);
 void USART_test(void);
 void USART_flush(uint8_t N);
 void USART_send_string(char* string, uint8_t length);
+void USART_receive_string(char* buffer, uint8_t msg_length);
 
 
 #endif /* USART_DRIVER_H_ */

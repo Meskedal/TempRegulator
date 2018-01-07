@@ -60,3 +60,11 @@
 		USART_Transmit(string[i]);
 	}
  }
+
+void USART_receive_string(char* buffer, uint8_t msg_length){
+
+	for (uint8_t i = 0; i < msg_length; i++){
+		data = USART_Receive();
+		buffer[i] = data;
+	}
+}

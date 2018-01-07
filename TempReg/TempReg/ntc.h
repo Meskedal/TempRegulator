@@ -16,6 +16,7 @@ void temp_print(float temp);
 float steinhart(float R);
 float ntc_get_temp_SH(void);
 float steinhart_SH(float R);
+void regulate_temp(float temp, float ref_temp);
 
 
 
