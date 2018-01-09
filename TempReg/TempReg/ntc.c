@@ -26,6 +26,7 @@ static uint8_t timer_flag = 0;
 
  
 void ntc_init(void){
+	DDRB |= (1 << PINB1) | (1 << PINB2); //Cooling, heating
 	cli(); // Disable global interrupts
 	TIMSK=(1<<TOIE1); // enable timer overflow interrupt for Timer 1
 	TCCR1B = (1<<CS10)|(1<<CS12); // start timer1 with /1024 prescaler
@@ -112,12 +113,14 @@ ISR(TIMER1_OVF_vect){
 }
 
 void regulate_temp(float temp, float ref_temp){
-	// DIRB |= (1 << PINB4) | (1 << PINB5); //heating cooling
-	//
 	if (temp > ref_temp+0.3){
-		//PORTB |= (1 << PINB4);
+		PORTB &= ~(1 << PINB2);
+		PORTB |= (1 << PINB1); //Cool
 	} 
 	else if (temp < ref_temp-0.3){
-		//PORTB |= (1 << PINB5);
+		PORTB &= ~(1 << PINB1);
+		PORTB |= (1 << PINB2); //Heat
+	} else{
+		PORTB &= ~((1<<PINB1) | (1 << PINB2));
 	}
 }

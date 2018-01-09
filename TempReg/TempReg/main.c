@@ -12,6 +12,9 @@
 #include "esp8266.h"
 static uint16_t data;
 static char data_send[4] = "0000";
+static char parameters[4] = "    ";
+static float ref_temp = 15.5;
+
 
 int main(void){	
 	esp8266_init();
@@ -26,12 +29,27 @@ int main(void){
  			temp = ntc_get_temp_B()-1.21; // Offset
 			data = (uint16_t)(temp*100.0);
 			itoa(data,data_send,10);
+			regulate_temp(temp, ref_temp);
 			//printf("Data: %d\n",data);
 		}
     }
 }
 
 ISR(INT0_vect){
-	//printf("%d",data);
-	USART_send_string(data_send,4);
+	char command = USART_Receive();
+	if (command == 's'){
+		USART_send_string(data_send,4);
+	} 
+	else if (command == 'u'){
+		uint8_t index = 0;
+		char cdata;
+		while((cdata = USART_Receive()) != 'f'){
+			parameters[index] = cdata;
+			index++;
+		}
+		ref_temp = atof(parameters);
+		for (uint8_t i = 0; i < 4; i++){
+			parameters[i] = ' ';
+		}
+	}
 }
