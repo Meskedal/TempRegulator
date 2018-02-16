@@ -41,7 +41,12 @@ def safe_request(url):
 	else:
 		return "error"
 def format_temp(temp):
-	temp_formated = "%s,%s" % (temp[0:2],temp[2:4])
+	temp_formated = 0
+	print (temp)
+	if len(temp) == 4:
+		temp_formated = "%s,%s" % (temp[0:2],temp[2:4])
+	elif (len(temp) == 3):
+		temp_formated = "%s,%s" % (temp[0:1],temp[1:3])
 	return temp_formated
 
 def insert_temp(temp, temp_ref, sheet):
@@ -52,14 +57,13 @@ def insert_temp(temp, temp_ref, sheet):
 	sheet.append_row(values)
 	
 def format_ref(ref):
-	print(ref)
 	ref = ref.replace(".", ",")
-	print(ref)
 	ref = ref.replace("f", "")
-	print(ref)
-	
 	return ref
-	
+
+def token_refresh(gc, credentials):
+	if credentials.access_token_expired:
+			gc.login()
 
 def main():
 	scope = ['https://spreadsheets.google.com/feeds']
@@ -79,18 +83,20 @@ def main():
 			sleep(5)
 	sheet.resize(241,3) # 240*1 = 4h span
 	while(1):
-		sleep(30)
-		if credentials.access_token_expired:
-			gc.login()
+		sleep(10)
+		token_refresh(gc, credentials)
 		temp = safe_request(temp_url)
 		if (temp != "error"):
+			token_refresh(gc, credentials)
 			temp_ref = safe_request(ref_url)
 			temp = format_temp(temp)
 			if(temp_ref != "error"):
 				temp_ref = format_ref(temp_ref)
+				token_refresh(gc, credentials)
 				insert_temp(temp, temp_ref, sheet)
 				print("new temp entry")
-			else: 
+			else:
+				token_refresh(gc, credentials)
 				insert_temp(temp, "", sheet)
 				
 				
