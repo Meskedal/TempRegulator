@@ -3,26 +3,7 @@ import gspread
 import requests
 from time import sleep, localtime, strftime
 
-#import pprint
-#may need ssl? open ssl?
-
-def get_temp():
-	sucess = True
-	try:
-		response = requests.get('http://192.168.1.99', timeout = 5)
-	except (requests.exceptions.ConnectionError):
-		print("Conncection error\n")
-		sucess = False
-	except (requests.exceptions.Timeout):
-		print("ESP8266 did not respond\n")
-		sucess = False
-	#else:
-	#	print("Something went wrong\n")
-	#	valid = False
-	if(sucess):
-		return response.text
-	else:
-		return "error"
+		
 def safe_request(url):
 	sucess = True
 	try:
@@ -33,16 +14,14 @@ def safe_request(url):
 	except (requests.exceptions.Timeout):
 		print("Timeout error\n")
 		sucess = False
-	#else:
-	#	print("Something went wrong\n")
-	#	valid = False
 	if(sucess):
 		return response.text
 	else:
 		return "error"
+		
 def format_temp(temp):
 	temp_formated = 0
-	print (temp)
+	#print (temp) e.g. 2050
 	if len(temp) == 4:
 		temp_formated = "%s,%s" % (temp[0:2],temp[2:4])
 	elif (len(temp) == 3):
@@ -83,7 +62,7 @@ def main():
 			sleep(5)
 	sheet.resize(241,3) # 240*1 = 4h span
 	while(1):
-		sleep(10)
+		sleep(60)
 		token_refresh(gc, credentials)
 		temp = safe_request(temp_url)
 		if (temp != "error"):
@@ -106,10 +85,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-#sheet.update_cell(2,2,'20,3');
-
-#pp = pprint.PrettyPrinter()
-#pp.pprint(temperatures)
-#temperatures = sheet.get_all_records()

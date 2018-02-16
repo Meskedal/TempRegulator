@@ -1,9 +1,0 @@
-AP 1A-FE-34-E5-F1-51
-STA 18-FE-34-E5-F1-51
-
-Flash real id:   001440E0
-Flash real size: 1048576
-
-Flash ide  size: 1048576
-Flash ide speed: 40000000
-Flash ide mode:  DIO
