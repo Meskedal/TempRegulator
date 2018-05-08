@@ -6,7 +6,7 @@
 
 
 const char* ssid = "Liljeveien1";
-const char* password = "hoppeslott";
+const char* password = "password";
 
 ESP8266WebServer server(80);
 
